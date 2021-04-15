@@ -16,7 +16,7 @@
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
-  display: flex;
+  display: -webkit-box;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -25,7 +25,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: lightgreen;
 }
 
 @keyframes App-logo-spin {
@@ -36,7 +36,33 @@
     transform: rotate(360deg);
   }
 }
-.image-container{
-  max-width: 100%;
-height: 80px;
+.ant-form{
+
+position: relative;
+    text-align: center;
+    margin-top: 124px;
+}
+.heading{
+  text-align: center;
+}
+.form{
+  background-color:lavenderblush;
+    position: relative;
+    text-align: center;
+    margin-top: 124px;
+    display: flex;
+}
+.address{
+  position: relative;
+  top:-16px;
+}
+.forms{
+     position: relative;
+    text-align: center;
+    margin-top: 124px;
+     border: 1px solid black;
+}
+.button{
+  position: relative;
+  background-color:mediumturquoise;
 }

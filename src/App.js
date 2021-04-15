@@ -1,123 +1,81 @@
-import { useState } from 'react';
-import 'antd/dist/antd.css';
-import './index.css';
+import React, { useState } from 'react';
 import './App.css';
-import { Layout, Menu, Breadcrumb, Card, List } from 'antd';
-import { ShoppingCartOutlined, NotificationOutlined, SkinTwoTone } from '@ant-design/icons';
-import data from './App.json';
-
-function App() {
-  const { SubMenu } = Menu;
-  const { Header, Content, Sider } = Layout;
-  const [num, setNum] = useState(0);
-  const incNum = () => {
-   if (num < 30) {
-      setNum(num + 1);
-    }
+const MultipleInputs = () => {
+  const [registration, userRegistration] = useState({
+    username: "",
+    email: "",
+    phone: "",
+    password: "",
+    school: "",
+    college: "",
+    location: ""
+  });
+  const [records, setRecords] = useState([]);
+  const handleInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    console.log(name, value);
+    userRegistration({ ...registration, [name]: value });
   }
-  const decNum = () => {
-    if (num > 0) {
-      setNum(num - 1);
-
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newRecord = { ...registration, id: new Date().getTime().toString() }
+    setRecords([...records, newRecord]);
+    userRegistration({ username: "", email: "", phone: "", password: "" })
   }
-
-return (
-    <div className="App">
-      <Layout>
-        <Header className="header">
-          <div className="logo" />
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-            <Menu.Item key="1">Dresses</Menu.Item>
-            <Menu.Item key="2">Fruits &amp; Vegatables</Menu.Item>
-            <Menu.Item key="3">Cakes</Menu.Item>
-          </Menu>
-        </Header>
-        <Layout>
-          <Sider width={200} className="site-layout-background">
-            <Menu
-              mode="inline"
-              defaultSelectedKeys={['1']}
-              defaultOpenKeys={['sub1']}
-              style={{ height: '100%', borderRight: 0 }}
-            >
-
-              <SubMenu key="sub1" icon={<ShoppingCartOutlined />} title="Category">
-                <Menu.Item key="1">Kurtas &amp; kurtis</Menu.Item>
-                <Menu.Item key="2">Tops,tees &amp; shirts</Menu.Item>
-                <Menu.Item key="3">Palazoos &amp; jeans</Menu.Item>
-                <Menu.Item key="4">Leggings &amp; salwars</Menu.Item>
-              </SubMenu>
-              <SubMenu key="sub2" icon={<SkinTwoTone />} title="fruits &amp; vegetables">
-                <Menu.Item key="5">Pomegrante</Menu.Item>
-                <Menu.Item key="6">Grapes</Menu.Item>
-                <Menu.Item key="7">Orange</Menu.Item>
-                <Menu.Item key="8">Pineapple</Menu.Item>
-              </SubMenu>
-              <SubMenu key="sub3" icon={< NotificationOutlined />} title="cakes">
-                <Menu.Item key="9">plum</Menu.Item>
-                <Menu.Item key="10">bluberry</Menu.Item>
-                <Menu.Item key="11">blackcurrant</Menu.Item>
-                <Menu.Item key="12">Apple pie</Menu.Item>
-              </SubMenu>
-            </Menu>
-          </Sider>
-          <Layout style={{ padding: '0 24px 24px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item>
-            </Breadcrumb>
-            <Content
-              className="site-layout-background"
-              style={{
-                padding: 24,
-                margin: 0,
-                minHeight: 280,
-              }}
-
-            >
-              <List
-                grid={{
-                  gutter: 16,
-                  xs: 1,
-                  sm: 2,
-                  md: 4,
-                  lg: 4,
-                  xl: 4,
-                  xxl: 3,
-                }}
-                dataSource={data.Array}
-                renderItem={item => (
-
-
-                  <List.Item>
-
-                    <Card
-
-                      title={item.title}>
-                      <img src={item.image} className="image-container" />
-                      <p>{item.name}</p>
-                      <p>{item.price}</p>
-                      <div>
-                        <button onClick={()=>incNum(item.id)}>+</button>
-                        {num}
-                        <button onClick={decNum}>-</button>
-
-                      </div>
-
-                    </Card>
-                  </List.Item>
-
-                )}
-              />,
-  </Content>
-          </Layout>
-        </Layout>
-      </Layout>
-
+  return (
+    <div className="forms">
+      <h1>Application Form</h1>
+      <form action="" onSubmit={handleSubmit} >
+        <div>
+          <label htmlFor="username">Username:</label>
+          <input type="text" autoComplete="off" value={registration.username} onChange={handleInput} name="username" id="username" />
+        </div><br></br>
+        <div>
+          <label htmlFor="Email">Email:</label>
+          <input type="text" autoComplete="off" value={registration.email} onChange={handleInput} name="email" id="email" />
+        </div><br></br>
+        <div>
+          <label htmlFor="phone">phone:</label>
+          <input type="number" autoComplete="off" value={registration.phone} onChange={handleInput} name="phone" id="phone" />
+        </div><br></br>
+        <div>
+          <label htmlFor="password">password:</label>
+          <input type="password" autoComplete="off" value={registration.password} onChange={handleInput} name="password" id="password" />
+        </div><br></br>
+        <div>
+          <label htmlFor="school">School:</label>
+          <input type="text" autoComplete="off" value={registration.School} onChange={handleInput} name="School" id="School" />
+        </div><br></br>
+        <div>
+          <label htmlFor="college">college:</label>
+          <input type="text" autoComplete="off" value={registration.college} onChange={handleInput} name="college" id="college" />
+        </div><br></br>
+        <div>
+          <label htmlFor="location">location:</label>
+          <input type="text" autoComplete="off" value={registration.location} onChange={handleInput} name="location" id="location" />
+        </div><br></br>
+        <button type="submit" className="button">Registration</button>
+        <div>
+          {
+            records.map((currEle) => {
+              const { id, username, email, phone, password, school, college, location } = currEle;
+              return (
+                <div className="showDatas" key={currEle.id}>
+                  <p>{currEle.username}</p>
+                  <p>{currEle.email}</p>
+                  <p>{currEle.phone}</p>
+                  <p>{currEle.password}</p>
+                  <p>{currEle.school}</p>
+                  <p>{currEle.college}</p>
+                  <p>{currEle.location}</p>
+                </div>
+              )
+            })
+          }
+        </div>
+      </form>
     </div>
-  );
+  )
 }
-
-export default App;
+export default MultipleInputs
